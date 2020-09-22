@@ -17,8 +17,6 @@ Yeah, that's it!
 
 `npm i`
 
-`nano config.json # Set the search site here`
-
-`node index.js`
+`node index.js --site="example.com" --depth=5`
 
 Now feed on the list of invites, and feel the wealth of servers!

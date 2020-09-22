@@ -4,7 +4,7 @@
   "description": "Run a web search on a given site and pull all available Discord invite links within returned search pages",
   "main": "index.js",
   "scripts": {
-    "run":  "node index.js"
+    "test": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/sciencegirl100/invitationer#readme",
   "dependencies": {
+    "minimist": "^1.2.5",
     "pj-scraper": "^1.0.0",
     "uuid-random": "^1.3.2",
     "website-scraper": "^4.2.2"

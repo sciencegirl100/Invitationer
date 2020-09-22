@@ -1,25 +1,62 @@
-const fs = require('fs')
-const path = require('path')
-const pjscrape = require('pj-scraper')
-const webscrape = require('website-scraper')
-const uuid = require('uuid-random')
-const config = JSON.parse(fs.readFileSync('config.json', 'utf8'))
+#!/usr/bin/env node
 
-var query = 'discord.gg site:' + config.search.site;
+const fs = require('fs');
+const path = require('path');
+const pjscrape = require('pj-scraper');
+const webscrape = require('website-scraper');
+const uuid = require('uuid-random');
+var argv = require('minimist')(process.argv.slice(2));
+var query = 'discord.gg site:';
+var opt = {
+  depth: 2,
+  site: 'reddit.com'
+};
 var linkArray = [];
 var invites = [];
-(async () => {
+
+if(typeof argv.help !== 'undefined'){
+  console.log('~ Invitationer ~');
+  console.log('');
+  console.log('node index.js --site="example.com" --depth=5');
+  console.log('');
+  console.log('--site     website to scrape for invites');
+  console.log('  Default: reddit.com');
+  console.log('--depth    number of search page results to pull (rougly 10 results per page)');
+  console.log('  Default: 2');
+  process.exit();
+}
+if (typeof argv.site !== 'undefined'){
+  if(typeof argv.site === 'string'){
+    opt.site = argv.site;
+  }else{
+    console.log('--site must be set to a string');
+    process.exit();
+  }
+}
+if (typeof argv.depth !== 'undefined'){
+  if(typeof argv.depth === 'number'){
+    opt.depth = argv.depth;
+  }else{
+    console.log('--depth must be set to an integer');
+    process.exit();
+  }
+}
+
+runQuery(opt.site, opt.depth);
+
+async function runQuery(site, depth){
+  query += site;
   let job = {
     search_engine: 'google',
     keywords: [query],
-    num_pages: config.search.max_pages
+    num_pages: depth
   };
   var res = await pjscrape.scrape({}, job);
   //console.dir(res.results[query] , {depth: null, colors: true});
   var finalPages = Object.keys(res.results[query]).length;
   for(var i = 0; i < finalPages; i++){
     var arrFix = i+1;
-    if(typeof res.results[query][arrFix] !== undefined){
+    if(typeof res.results[query][arrFix] !== 'undefined'){
       try{
         var page = res.results[query][arrFix].results;
         //console.dir(page , {depth: null, colors: true});
@@ -37,7 +74,7 @@ var invites = [];
   uniqueInvites.forEach(e => {
     console.log(e);
   })
-})();
+}
 
 async function yankList(links) {
   const opt = {

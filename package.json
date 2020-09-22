@@ -1,0 +1,28 @@
+{
+  "name": "invitationer",
+  "version": "1.0.0",
+  "description": "Run a web search on a given site and pull all available Discord invite links within returned search pages",
+  "main": "index.js",
+  "scripts": {
+    "run":  "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sciencegirl100/invitationer.git"
+  },
+  "keywords": [
+    "chat",
+    "scraper"
+  ],
+  "author": "Elizabeth Anne Cray 🧜‍♀️",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/sciencegirl100/invitationer/issues"
+  },
+  "homepage": "https://github.com/sciencegirl100/invitationer#readme",
+  "dependencies": {
+    "pj-scraper": "^1.0.0",
+    "uuid-random": "^1.3.2",
+    "website-scraper": "^4.2.2"
+  }
+}

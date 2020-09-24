@@ -23,6 +23,8 @@ if(typeof argv.help !== 'undefined'){
   console.log('  Default: reddit.com');
   console.log('--depth    number of search page results to pull (rougly 10 results per page)');
   console.log('  Default: 2');
+  console.log('--output   specify file to dump links to');
+  console.log('  Default: [empty]');
   process.exit();
 }
 if (typeof argv.site !== 'undefined'){
@@ -74,6 +76,15 @@ async function runQuery(site, depth){
   uniqueInvites.forEach(e => {
     console.log(e);
   })
+  if (typeof argv.output !== 'undefined'){
+    var cache = ""
+    uniqueInvites.forEach(e => {
+      cahce += e + '\n';
+    });
+    fs.writeFileSync(argv.ourput, cache, (err) => {
+      console.log(err);
+    })
+  }
 }
 
 async function yankList(links) {
